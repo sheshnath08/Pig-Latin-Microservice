@@ -3,7 +3,29 @@ from flask import Flask, make_response, request
 app = Flask(__name__)
 
 def make_pig_latin_translation(words):
-    words = 'test'
+    """This function does the translation"""
+    VOVELS =['a','e','i','o','u']
+
+    #case: words containing punctuations
+    if not words.isalpha():
+        return words
+
+    #case: Capitalized words
+    if words[0].isUpper:
+        return make_pig_latin_translation(words.lower()).capitalize()
+
+    #case : Words starting with Vovels
+    if words[0].lower() in VOVELS:
+        return words+'yay'
+
+    else:
+        for i,char in enumerate(words):
+            if char.lower() in VOVELS:
+                return words[i:].lower()+words[:i].lower()+'ay'
+
+    #words containing no vovel
+    return words+'ay'
+
     return words
 
 @app.route('/translate', methods=['POST'])
