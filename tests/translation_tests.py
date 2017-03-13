@@ -22,7 +22,7 @@ class PigLatinTranslationTests(unittest.TestCase):
 
     def test_long__sentences(self):
         long_sentence = ('Testing Long sentance, with punctuation !!')
-        expected_output = ('Estingtay Onglay entencesay, ithway unctuationpay !!')
+        expected_output = ('Estingtay Onglay entancesay, ithway unctuationpay !!')
         response = requests.post(self.url, long_sentence).text
         self.assertEqual(response, expected_output)
 
