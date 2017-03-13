@@ -11,7 +11,7 @@ def make_pig_latin_translation(words):
         return words
 
     #case: Capitalized words
-    if words[0].isUpper:
+    if words[0].isupper():
         return make_pig_latin_translation(words.lower()).capitalize()
 
     #case : Words starting with Vovels
