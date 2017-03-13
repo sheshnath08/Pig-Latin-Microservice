@@ -1,42 +1,49 @@
+import re
+
 from flask import Flask, make_response, request
 
 app = Flask(__name__)
 
-def make_pig_latin_translation(words):
-    """This function does the translation"""
+def word_pig_latin_translation(word):
+    """This function does the translation for word"""
+
     VOVELS =['a','e','i','o','u']
 
     #case: words containing punctuations
-    if not words.isalpha():
-        return words
+    if not word.isalpha():
+        return word
 
     #case: Capitalized words
-    if words[0].isupper():
-        return make_pig_latin_translation(words.lower()).capitalize()
+    if word[0].isupper():
+        return word_pig_latin_translation(word.lower()).capitalize()
 
     #case : Words starting with Vovels
-    if words[0].lower() in VOVELS:
-        return words+'yay'
+    if word[0].lower() in VOVELS:
+        return word + 'yay'
 
     else:
-        for i,char in enumerate(words):
+        for i,char in enumerate(word):
             if char.lower() in VOVELS:
-                return words[i:].lower()+words[:i].lower()+'ay'
+                return word[i:].lower() + word[:i].lower() + 'ay'
 
     #words containing no vovel
-    return words+'ay'
+    return word + 'ay'
 
-    return words
+def pig_latin_translation(data):
+    words = re.split('(\W)', data)
+    return ''.join([word_pig_latin_translation(word) for word in words])
+
+    return translated_sentance
 
 @app.route('/translate', methods=['POST'])
 def pig_latin_translate():
     """Handles the translation of English to Pig-Latin"""
     data = request.stream.read().decode('utf-8')
     if not data:
-        response = make_response("POST request for translation must contains at least one word.")
-        request.status_code = 400 #Bad request
+        response = make_response("POST request must contains at least one word.")
+        response.status_code = 400 #Bad request
         return response
-    translated_data = make_pig_latin_translation(data)
+    translated_data = pig_latin_translation(data)
     response = make_response(translated_data)
     response.status_code = 200 #HTTP_OK
     return response
