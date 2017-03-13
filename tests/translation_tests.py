@@ -3,7 +3,7 @@ import requests
 
 
 class PigLatinTranslationTests(unittest.TestCase):
-    url = 'http://0.0.0.0/translate'
+    url = 'http://localhost/translate'
 
     def test_words(self):
         """Should pass for the basic test cases provided"""
