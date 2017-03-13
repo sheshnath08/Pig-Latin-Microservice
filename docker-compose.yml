@@ -1,0 +1,9 @@
+version: '1'
+ services:
+   web:
+     build: .
+     command: python services/pig_latin_microservices.py
+     volumes:
+       - .:/code
+     ports:
+       - "80:80"
