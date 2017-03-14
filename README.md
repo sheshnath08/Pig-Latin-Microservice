@@ -43,7 +43,9 @@ E.g.
 
 #Testing
 You can run the unit tests, which are in the tests directory of the project.
+
 **Installing Dependencies**
+
  Run this command to install dependencies for the test.
  `$ pip install -r requirements.txt`
  
